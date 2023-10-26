@@ -8,13 +8,7 @@ The internal architecture of SPI mainly consists of two modules, master module a
  • Serial Clock (SCLK) - Clock driven by the master to slaves, used to synchronize the data 
 • Slave Select (SS) - Select signal driven by the master to individual slaves, used to select the target slave
 
-
-
-![SPI Data Transmission]()
-
-
-
-
+![SPI Data Transmission](https://github.com/SamruddhiHiremath/SPI-protocol/assets/116056284/fbf09d86-cea4-43cc-83a7-3e4a21355d49)
 
 
 Data Transmission
