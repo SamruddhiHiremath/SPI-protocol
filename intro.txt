@@ -10,8 +10,7 @@ The internal architecture of SPI mainly consists of two modules, master module a
 
 
 
-
-
+![SPI Data Transmission]()
 
 
 
