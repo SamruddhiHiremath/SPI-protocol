@@ -1,0 +1,66 @@
+module spiprotocolf(input wire clk,input wire reset,input wire[7:0]datain,
+          output wire spi_cs_c,output wire spi_sclk,output wire spi_data,output[2:0]counter,
+			 input wire [7:0]spi_dataino,output wire spi_datao,output[2:0]countero);
+reg[7:0]MOSI;
+reg[7:0]MISO;
+reg dclk;
+reg[2:0]count;
+reg[2:0]counto;
+reg cs_c;
+reg sclk;
+reg [3:0] state;
+always@(posedge clk or posedge reset)
+  if(reset)
+  begin 
+  MOSI<=8'b0;
+  MISO<=8'b0;
+  count<=3'd8;
+  counto<=3'd8;
+  cs_c<=1'b1;
+  sclk<=1'b0;
+  end
+  else 
+  begin
+  case(state)
+  0:begin
+  sclk<=1'b0;
+  cs_c<=1'b1;
+  state<=1;
+  end
+  1:begin
+  sclk<=1'b0;
+  cs_c<=1'b0;
+  MOSI<=datain[count-1];
+  count<=count-1;
+  state<=2;
+  end
+  2:begin
+  sclk<=1'b0;
+  cs_c<=1'b0;
+  MISO<=spi_dataino[counto-1];
+  counto<=counto-1;
+  state<=3;
+  end 
+  3:begin
+  sclk<=1'b1;
+  if(count>0)
+  begin
+  state<=1;
+  end
+  else 
+  begin
+  count<=8;
+  state<=0;
+  end
+  end
+  
+  default:state<=0;
+  endcase
+  end
+  assign spi_cs_c=cs_c;
+  assign spi_sclk=sclk;
+  assign spi_data=MOSI;
+  assign counter=count;
+  assign spi_datao=MISO;
+  assign countero=counto;
+endmodule
